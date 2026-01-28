@@ -1,0 +1,226 @@
+.history-container {
+    background: var(--bg-panel);
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.list-title {
+    padding: 35px 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .meta {
+        h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 4px;
+            display: block;
+        }
+    }
+}
+
+.filter-chip {
+    background: var(--border);
+    padding: 8px 18px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+
+    &.active {
+        background: var(--text-main);
+        color: var(--bg-panel);
+    }
+}
+
+.items-list {
+    padding: 25px 40px;
+    max-height: 550px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.entry-row {
+    display: grid;
+    grid-template-columns: 1fr 160px 100px;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--accent);
+        transform: translateX(5px);
+    }
+}
+
+.main-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .customer-block {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .name {
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        .id-tag {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            padding: 2px 6px;
+            background: var(--border);
+            border-radius: 4px;
+        }
+    }
+
+    .finance-block {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .amount {
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .type {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    }
+}
+
+.status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--text-main);
+    /* Corrected from white to themed main text */
+    background: var(--bg-main);
+    padding: 8px 16px;
+    border-radius: 99px;
+    width: fit-content;
+    border: 1px solid var(--border);
+
+    .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #475569;
+    }
+}
+
+.light-theme .status-pill {
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+.approved .status-pill .dot {
+    background: #10b981;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.rejected .status-pill .dot {
+    background: #ef4444;
+    box-shadow: 0 0 10px #ef4444;
+}
+
+.pending .status-pill .dot {
+    background: #3b82f6;
+    box-shadow: 0 0 10px #3b82f6;
+}
+
+.actions-pill {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 99px;
+    padding: 5px;
+    gap: 5px;
+    width: fit-content;
+    justify-self: end;
+
+    .btn-icon {
+        width: 34px;
+        height: 34px;
+        border: none;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s;
+        border-radius: 50%;
+
+        &:hover {
+            background: white;
+            color: black;
+        }
+    }
+
+    .divider {
+        width: 1px;
+        height: 14px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+@media (max-width: 800px) {
+    .entry-row {
+        grid-template-columns: 1fr auto;
+        gap: 15px;
+    }
+
+    .status-pill {
+        display: none;
+    }
+}

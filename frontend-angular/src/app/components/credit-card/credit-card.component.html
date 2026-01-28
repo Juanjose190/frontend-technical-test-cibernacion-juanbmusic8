@@ -1,0 +1,68 @@
+<div class="card-viewer" [ngClass]="{ 'flipped': isFlipped, 'business': tipoCredito === 'BUSINESS' }">
+    <div class="card-inner" [ngClass]="status">
+        <!-- Front: Protagonist Face -->
+        <div class="card-face card-front">
+            <div class="card-glow"></div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="chip-container">
+                        <span class="chip"></span>
+                    </div>
+                    <span class="brand">{{ tipoCredito === 'BUSINESS' ? 'Elite Business' : 'Infinite Personal' }}</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="amount-section">
+                        <label>Credit Line</label>
+                        <div class="amount-display">{{ monto | currency:'USD':'symbol':'1.0-0' }}</div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="holder-section">
+                        <label>Card Holder</label>
+                        <div class="name-display">{{ nombre || 'VALUED CUSTOMER' }}</div>
+                    </div>
+                    <div class="type-badge">{{ tipoCredito }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back: Status & Result -->
+        <div class="card-face card-back">
+            <div class="card-glow"></div>
+            <div class="card-content">
+                <div class="magnetic-strip"></div>
+
+                <div class="status-container">
+                    <div class="status-icon" [ngClass]="status">
+                        <span *ngIf="status === 'APPROVED'">✓</span>
+                        <span *ngIf="status === 'REJECTED'">✕</span>
+                        <span *ngIf="status === 'PENDING'" class="spinner"></span>
+                    </div>
+
+                    <h2 class="status-title">{{ status === 'APPROVED' ? 'APROBADO' : (status === 'REJECTED' ?
+                        'RECHAZADO' : 'PROCESANDO') }}</h2>
+
+                    <p class="status-message">{{ message }}</p>
+
+                    <div class="status-details">
+                        <div class="detail-item">
+                            <label>ID SOLICITUD</label>
+                            <span>#{{ requestId || '----' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>FECHA</label>
+                            <span>{{ (date | date:'shortDate') || '--/--/--' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back-footer">
+                    <span class="bank-logo">Bank<span>Pro</span></span>
+                    <span class="secure-tag">Secure Transaction</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

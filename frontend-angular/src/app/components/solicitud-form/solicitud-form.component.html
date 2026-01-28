@@ -1,0 +1,45 @@
+<div class="config-container">
+    <div class="header">
+        <h2>Configurador</h2>
+        <p>{{ editData ? 'Modificando solicitud #' + editData.id : 'Nueva gestión de crédito' }}</p>
+    </div>
+
+    <form [formGroup]="creditForm" (ngSubmit)="onSubmit()">
+        <div class="field-group">
+            <label>Titular de Cuenta</label>
+            <input type="text" formControlName="nombre" placeholder="Nombre completo">
+        </div>
+
+        <div class="field-group">
+            <label>Monto Solicitado (USD)</label>
+            <div class="input-stack">
+                <span class="currency">$</span>
+                <input type="number" formControlName="monto" placeholder="0.00">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Tipo de Producto</label>
+            <div class="tab-selector">
+                <button type="button" [class.selected]="creditForm.get('tipoCredito')?.value === CreditType.PERSONAL"
+                    (click)="creditForm.get('tipoCredito')?.setValue(CreditType.PERSONAL)">
+                    Personal
+                </button>
+                <button type="button" [class.selected]="creditForm.get('tipoCredito')?.value === CreditType.BUSINESS"
+                    (click)="creditForm.get('tipoCredito')?.setValue(CreditType.BUSINESS)">
+                    Business
+                </button>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary" [disabled]="creditForm.invalid || isLoading">
+                <span *ngIf="!isLoading">{{ editData ? 'Confirmar Cambios' : 'Procesar Solicitud' }}</span>
+                <span *ngIf="isLoading" class="loader"></span>
+            </button>
+            <button type="button" *ngIf="editData" (click)="cancelEdit()" class="btn-ghost">
+                Descartar cambios
+            </button>
+        </div>
+    </form>
+</div>
