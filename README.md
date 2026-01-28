@@ -51,5 +51,13 @@ The dashboard is fully connected to a RESTful backend:
    ```
 4. **Backend requirement**: Ensure your Spring Boot / REST API is running on `http://localhost:8080`.
 
+
+<img width="1440" height="804" alt="Screenshot 2026-01-28 at 2 52 37 pm" src="https://github.com/user-attachments/assets/a61e9b78-0edb-4a18-b5d5-0907f3b4b2f0" />
+<img width="1440" height="616" alt="Screenshot 2026-01-28 at 3 20 15 pm" src="https://github.com/user-attachments/assets/f1e65d8c-8fb5-482b-8ad2-fddf806d2408" />
+<img width="1440" height="810" alt="Screenshot 2026-01-28 at 3 20 48 pm" src="https://github.com/user-attachments/assets/7839e059-df2b-453b-912f-c7c816eb5af0" />
+<img width="1440" height="619" alt="Screenshot 2026-01-28 at 3 21 07 pm" src="https://github.com/user-attachments/assets/0ae368e7-c294-4d13-8d57-769ea650e661" />
+
+
+
 ---
 Made with ❤️ by **Juanjobb**
