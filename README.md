@@ -39,7 +39,7 @@ The dashboard is fully connected to a RESTful backend:
 
 1. **Clone the repository**:
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/Juanjose190/frontend-technical-test-cibernacion-juanbmusic8
    ```
 2. **Install dependencies**:
    ```bash
@@ -47,7 +47,7 @@ The dashboard is fully connected to a RESTful backend:
    ```
 3. **Run the development server**:
    ```bash
-   npm start
+   ng serve
    ```
 4. **Backend requirement**: Ensure your Spring Boot / REST API is running on `http://localhost:8080`.
 
