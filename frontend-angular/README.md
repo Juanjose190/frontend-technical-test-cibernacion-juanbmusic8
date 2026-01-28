@@ -1,59 +1,55 @@
-# FrontendAngular
+# BankPro - Premium Credit Management Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Welcome to **BankPro**, a high-end Fintech dashboard I built to provide a seamless and interactive credit application experience. This project focus on professional aesthetics, real-time feedback, and robust CRUD integration.
 
-## Development server
+## 🚀 Key Features
 
-To start a local development server, run:
+### 1. Advanced 30/70 Dashboard Layout
+I designed the workspace with a clear hierarchy:
+- **Left Panel (30%)**: A dedicated "Configurator" where users enter their data. I optimized it for focus and readability.
+- **Center Hero (70%)**: A large preview area where the product stays as the visual protagonist.
 
-```bash
-ng serve
-```
+### 2. Live Preview Interaction
+I implemented a "letter-by-letter" sync engine. As you type your name or amount, the credit card updates instantly. This provides immediate visual reward and reduces input errors.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 3. Interactive 3D Credit Card
+The centerpiece of the app is a cinematic 3D card.
+- **Dynamic Themes**: I built a logic that switches card styles (colors, badges, and brand labels) instantly when toggling between **Personal** and **Business** modes.
+- **State Feedback**: The card flips automatically to show the final result (Approved/Rejected) once the backend responds.
 
-## Code scaffolding
+### 4. Enterprise-Grade Theme System
+I implemented a global theme switcher (Light/Dark) using CSS variables:
+- **Dark Mode**: A sleek, OLED-ready interface with deep gradients and emerald accents.
+- **Light Mode**: A clean, accessible look with refined contrast for high legibility.
+- **Persistence**: I used `localStorage` so the app remembers your preferred theme across sessions.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 5. Seamless CRUD Integration
+The dashboard is fully connected to a RESTful backend:
+- **Real-time Updates**: Editing an entry triggers a smooth scroll to the top and a "Draft" state reset for the card.
+- **Optimized Workflow**: Grouped action pills for history management (Edit/Delete) with explicit feedback notifications.
 
-```bash
-ng generate component component-name
-```
+## 🛠 Technical Decisions
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Angular 18 & Standalone Components**: I chose this modern architecture to ensure the project is lightweight, modular, and highly performant, adhering to the latest stable standards of version 18.
+- **CSS Variables & Glassmorphism**: For the theming system, I avoided heavy libraries and went with native CSS variables for zero-latency theme switching and ultra-smooth 0.3s transitions.
+- **Atomic Component Design**: I split the UI into highly specialized components (`CreditCard`, `SolicitudForm`, `SolicitudList`) to keep the logic clean and the codebase scalable.
+- **UX-First Logic**: I decided to reset the card status to "Pending" during edits to prevent confusing users with old "Approved" animations while they are still modifying data.
 
-```bash
-ng generate --help
-```
+## 📦 Installation
 
-## Building
+1. **Clone the repository**:
+   ```bash
+   git clone [repository-url]
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Run the development server**:
+   ```bash
+   npm start
+   ```
+4. **Backend requirement**: Ensure your Spring Boot / REST API is running on `http://localhost:8080`.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+Made with ❤️ by **Juanjobb**
