@@ -1,69 +1,63 @@
-// src/app/services/solicitud.service.ts
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { Solicitud, SolicitudResponse } from '../models/solicitud.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class SolicitudService {
-    private readonly baseUrl = 'http://localhost:8080/api/credits';
-    private solicitudesSubject = new BehaviorSubject<SolicitudResponse[]>([]);
-    public solicitudes$ = this.solicitudesSubject.asObservable();
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/credits`;
 
-    private lastResponseSubject = new BehaviorSubject<SolicitudResponse | null>(null);
-    public lastResponse$ = this.lastResponseSubject.asObservable();
+  
+  private readonly solicitudesSignal = signal<SolicitudResponse[]>([]);
+  private readonly lastResponseSignal = signal<SolicitudResponse | null>(null);
 
-    constructor(private http: HttpClient) {
-        this.cargarSolicitudes();
-    }
+  public readonly solicitudes = computed(() => this.solicitudesSignal());
+  public readonly lastResponse = computed(() => this.lastResponseSignal());
 
-    cargarSolicitudes(): void {
-        this.http.get<SolicitudResponse[]>(this.baseUrl).subscribe(
-            data => this.solicitudesSubject.next(data)
-        );
-    }
+  constructor() {
+    this.fetchSolicitudes();
+  }
 
-    enviarSolicitud(solicitud: Solicitud): Observable<SolicitudResponse> {
-        return this.http.post<SolicitudResponse>(this.baseUrl, solicitud).pipe(
-            tap(response => {
-                this.lastResponseSubject.next(response);
-                this.cargarSolicitudes();
-            })
-        );
-    }
+  fetchSolicitudes(): void {
+    this.http.get<SolicitudResponse[]>(this.apiUrl).subscribe(data => {
+      this.solicitudesSignal.set(data);
+    });
+  }
 
-    getSolicitudes(): Observable<SolicitudResponse[]> {
-        return this.http.get<SolicitudResponse[]>(this.baseUrl).pipe(
-            tap(data => this.solicitudesSubject.next(data))
-        );
-    }
+  enviarSolicitud(solicitud: Solicitud): Observable<SolicitudResponse> {
+    return this.http.post<SolicitudResponse>(this.apiUrl, solicitud).pipe(
+      tap(response => {
+        this.lastResponseSignal.set(response);
+        this.fetchSolicitudes();
+      })
+    );
+  }
 
-    // ✅ AHORA SÍ CORREGIDO - Con paréntesis
-    updateSolicitud(id: number, solicitud: Solicitud): Observable<SolicitudResponse> {
-        return this.http.put<SolicitudResponse>(`${this.baseUrl}/${id}`, solicitud).pipe(
-            tap(response => {
-                this.lastResponseSubject.next(response);
-                this.cargarSolicitudes();
-            })
-        );
-    }
+  updateSolicitud(id: number, solicitud: Solicitud): Observable<SolicitudResponse> {
+    return this.http.put<SolicitudResponse>(`${this.apiUrl}/${id}`, solicitud).pipe(
+      tap(response => {
+        this.lastResponseSignal.set(response);
+        this.fetchSolicitudes();
+      })
+    );
+  }
 
-    // ✅ AHORA SÍ CORREGIDO - Con paréntesis
-    deleteSolicitud(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(
-            tap(() => {
-                this.cargarSolicitudes();
-                if (this.lastResponseSubject.value?.id === id) {
-                    this.lastResponseSubject.next(null);
-                }
-            })
-        );
-    }
+  deleteSolicitud(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        if (this.lastResponseSignal()?.id === id) {
+          this.lastResponseSignal.set(null);
+        }
+        this.fetchSolicitudes();
+      })
+    );
+  }
 
-    limpiarEstado(): void {
-        this.lastResponseSubject.next(null);
-    }
+  resetState(): void {
+    this.lastResponseSignal.set(null);
+  }
 }
